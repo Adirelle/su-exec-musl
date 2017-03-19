@@ -1,0 +1,10 @@
+#!/bin/bash
+for N in $(seq 20); do
+    wget "$@"
+    RES=$?
+    if [[ $RES -lt 4 ]]; then
+        break
+    fi
+    sleep 15
+done
+exit $RES

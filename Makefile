@@ -25,7 +25,7 @@ SU_EXEC_PKG = $(PKG_DIR)/su-exec-v$(SU_EXEC_VER).tar.gz
 SU_EXEC_SRC = $(SRC_DIR)/su-exec-$(SU_EXEC_VER)
 SU_EXEC_URL = https://github.com/ncopa/su-exec/archive/v$(SU_EXEC_VER).tar.gz
 
-WGET = wget --timestamping
+WGET = tools/wget --timestamping
 
 BINARY = $(SU_EXEC_SRC)/su-exec-static
 PACKAGE = $(BUILD)/artifacts/su-exec-$(SU_EXEC_VER)-$(TARGET_ARCH)-linux-musl.tar.bz2
