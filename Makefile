@@ -12,7 +12,7 @@ MUSL_GCC_VER = 6.3.0
 MUSL_GCC_PKG = $(PKG_DIR)/gcc-$(MUSL_GCC_VER)-$(TARGET_ARCH)-linux-musl.tar.gz 
 MUSL_GCC_DIR = $(BUILD)/gcc-$(MUSL_GCC_VER)-$(TARGET_ARCH)-linux-musl
 MUSL_GCC_BIN = $(MUSL_GCC_DIR)/$(TARGET_ARCH)-linux-musl-gcc
-MUSL_GCC_URL = https:u/github.com/just-containers/musl-cross-make/releases/download/v$(MUSL_GCC_REL)/gcc-$(MUSL_GCC_VER)-$(TARGET_ARCH)-linux-musl.tar.gz
+MUSL_GCC_URL = https://github.com/just-containers/musl-cross-make/releases/download/v$(MUSL_GCC_REL)/gcc-$(MUSL_GCC_VER)-$(TARGET_ARCH)-linux-musl.tar.gz
 
 MAKE_VER = 4.2.1
 MAKE_PKG = $(PKG_DIR)/make-$(MAKE_VER).tar.bz2 
