@@ -55,18 +55,19 @@ $(ROOT_DIR)/bin/su-exec: $(BINARY)
 
 $(BINARY): $(SU_EXEC_SRC) $(MAKE_BIN) $(MUSL_GCC_BIN)
 	PATH=$(abspath $(MUSL_GCC_DIR))/bin:$(abspath $(MAKE_SRC)):$(PATH) $(MAKE_BIN) $(MAKE_FLAGS) -C $(SU_EXEC_SRC) CC=$(TARGET_ARCH)-linux-musl-cc $(@F)
+$(SU_EXEC_SRC): $(SU_EXEC_PKG) | $(SRC_DIR)
+	tar xfz $< -C $(@D)
+	touch -r $< $@
+
+$(SU_EXEC_PKG): | $(PKG_DIR)
+	$(WGET) -P $(@D) $(SU_EXEC_URL)
+
+$(SRC_DIR) $(PKG_DIR) $(BIN_DIR) $(ATF_DIR):
+	mkdir -p $@
 
 $(MAKE_BIN): $(MAKE_SRC)
 	cd $(MAKE_SRC) && ./configure
 	make -C $(MAKE_SRC) make $(MAKE_FLAGS)
-
-$(MUSL_GCC_BIN): $(MUSL_GCC_PKG)
-	-mkdir -p $(MUSL_GCC_DIR)
-	tar xfz $< -C $(MUSL_GCC_DIR)
-	touch -r $< $@
-
-$(MUSL_GCC_PKG): | $(PKG_DIR)
-	$(WGET) -P $(@D) $(MUSL_GCC_URL)
 
 $(MAKE_SRC): $(MAKE_PKG) | $(SRC_DIR)
 	tar xfj $< -C $(@D)
@@ -75,12 +76,10 @@ $(MAKE_SRC): $(MAKE_PKG) | $(SRC_DIR)
 $(MAKE_PKG): | $(PKG_DIR)
 	$(WGET) -P $(@D) $(MAKE_URL)
 
-$(SU_EXEC_SRC): $(SU_EXEC_PKG) | $(SRC_DIR)
-	tar xfz $< -C $(@D)
+$(MUSL_GCC_BIN): $(MUSL_GCC_PKG)
+	-mkdir -p $(MUSL_GCC_DIR)
+	tar xfz $< -C $(MUSL_GCC_DIR)
 	touch -r $< $@
 
-$(SU_EXEC_PKG): | $(PKG_DIR)
-	$(WGET) -P $(@D) $(SU_EXEC_URL)
-
-$(SRC_DIR) $(PKG_DIR) $(BIN_DIR):
-	mkdir -p $@
+$(MUSL_GCC_PKG): | $(PKG_DIR)
+	$(WGET) -P $(@D) $(MUSL_GCC_URL)
